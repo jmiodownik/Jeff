@@ -3,12 +3,13 @@ import string
 
 network = 'chat.freenode.net'
 port = 6667
+chan = 'aisdenver'
 irc = socket.socket ( socket.AF_INET, socket.SOCK_STREAM )
 irc.connect ( ( network, port ) )
 print irc.recv ( 4096 )
 irc.send ( 'NICK _jeff_\r\n' )
 irc.send ( 'USER jeff_____ jeff___ jeff___ :Python IRC\r\n' )
-irc.send ( 'JOIN #foodybarbaz\r\n' )
+irc.send ( 'JOIN #%s\r\n' % chan )
 
 readbuffer = ""
 while(1):
@@ -24,4 +25,4 @@ while(1):
 		for elm in line:
 			if ":jeff" in elm:
 				print "found jeff!!!"
-				irc.send(bytes("PRIVMSG #foodybarbaz :JEFF!!\r\n"))
+				irc.send(bytes("PRIVMSG #%s :JEFF!!\r\n" % chan))
