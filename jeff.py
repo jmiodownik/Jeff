@@ -3,7 +3,7 @@ import string
 
 network = 'chat.freenode.net'
 port = 6667
-chan = 'aisdenver'
+chan = 'foodybarbaz'
 irc = socket.socket ( socket.AF_INET, socket.SOCK_STREAM )
 irc.connect ( ( network, port ) )
 print irc.recv ( 4096 )
@@ -22,7 +22,10 @@ while(1):
 		line = str.rstrip(line)
 		line = str.split(line)
 		print line
-		for elm in line:
-			if ":jeff" in elm:
-				print "found jeff!!!"
-				irc.send(bytes("PRIVMSG #%s :JEFF!!\r\n" % chan))
+		if 'PRIVMSG' in line:
+			line = line[line.index("PRIVMSG") +2:]
+			for elm in line:
+				if 'jeff' in elm.lower():
+					print "found jeff!!!"
+					irc.send(bytes("PRIVMSG #%s :JEFF!!\r\n" % chan))
+					quit()
